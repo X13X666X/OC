@@ -20,17 +20,19 @@ void showMenu() {
 void createProcess() {
     STARTUPINFOW si = { sizeof(si) };
     PROCESS_INFORMATION pi;
-    std::wstring command = L"notepad.exe";
+
+    std::wstring command = L"\"C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe\"";
 
     if (CreateProcessW(NULL, &command[0], NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi)) {
-        std::wcout << L"Process created. PID: " << pi.dwProcessId << L"\n";
+        std::wcout << L"Chrome started. PID: " << pi.dwProcessId << L"\n";
         CloseHandle(pi.hProcess);
         CloseHandle(pi.hThread);
     }
     else {
-        std::wcerr << L"Failed to create process. Error: " << GetLastError() << L"\n";
+        std::wcerr << L"Failed to launch Chrome. Error: " << GetLastError() << L"\n";
     }
 }
+
 
 void listProcesses() {
     PROCESSENTRY32W pe32 = { sizeof(pe32) };
